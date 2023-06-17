@@ -5,7 +5,7 @@
   </header>
   <p class="card-body">{{article}}</p>
   {{#if logged_in}}
-  {{#if (eq user.id logged_in.id)}}
+  {{#if isAuthor}}
   <div class="card-footer">
     <button class="btn btn-sm btn-primary" data-id="{{id}}">UPDATE</button>
     <button class="btn btn-sm btn-danger" data-id="{{id}}">DELETE</button>

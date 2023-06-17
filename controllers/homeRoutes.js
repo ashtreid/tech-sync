@@ -36,12 +36,13 @@ router.get('/blog/:id', async (req, res) => {
         });
 
         const blogs = blogData.get({ plain: true });
+        const logged_in = req.session.logged_in || false;
+        const isAuthor = req.session.user_id === blogs.user.id
 
         res.render('blog', {
-            //TODO: Does this need to include layout: 'main', here?
             ...blogs,
-            logged_in: req.session.logged_in
-            // logged_in: true
+            logged_in,
+            isAuthor
         });
     } catch (err) {
         res.status(500).json(err);

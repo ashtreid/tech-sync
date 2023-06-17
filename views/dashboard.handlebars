@@ -5,19 +5,22 @@
 </div
     {{#if blogs.length}}
     <div class="col-md-6 blog-list">
-        <h3>Published Blogs:</h3>
+        <h4 class="pt-5">Your published articles:</h4>
 
         {{#each blogs as |blog|}}
         <div class="row mb-2">
             <div class="col-md-8">
-                <h4><a href="/blog/{{blog.id}}">{{blog.title}}</a></h4>
+                <h5><a href="/blog/{{blog.id}}">{{blog.title}}</a></h5>
                 <h6>Created on: {{format_date blog.date_created}}</h6>
             </div>
-            <div class="col-md-4">
+            {{!-- <div class="col-md-4">
                 <button class="btn btn-sm btn-danger" data-id="{{blog.id}}">DELETE</button>
-            </div>
+            </div> --}}
         </div>
         {{/each}}
+        <div>
+            <button class="btn btn-primary new-article-btn"><a href="/create-article">NEW ARTICLE</a></button>
+        </div>
     </div>
     {{/if}}
 </div>
