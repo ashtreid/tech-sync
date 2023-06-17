@@ -24,13 +24,13 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/blogs/:id', async (req, res) => {
+router.get('/blog/:id', async (req, res) => {
     try {
         const blogData = await Blog.findByPk(req.params.id, {
             include: [
                 {
                     model: User,
-                    attributes: ['name'],
+                    attributes: ['id', 'name'],
                 },
             ],
         });
@@ -41,13 +41,14 @@ router.get('/blogs/:id', async (req, res) => {
             //TODO: Does this need to include layout: 'main', here?
             ...blogs,
             logged_in: req.session.logged_in
+            // logged_in: true
         });
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
-router.get('/blogs/:id/comments', async (req, res) => {
+router.get('/blog/:id/comments', async (req, res) => {
     try {
         const blogId = req.params.id;
 
@@ -71,8 +72,7 @@ router.get('/blogs/:id/comments', async (req, res) => {
     }
 });
 
-//TODO: should the route be '/blog-profile/:id' instead? Or, should I create an extra GET for that?
-router.get('/blog-profiles', authIn, async (req, res) => {
+router.get('/dashboard', authIn, async (req, res) => {
     try {
         const userData = await User.findByPk(req.session.user_id, {
             attributes: { exclude: ['password'] },
@@ -81,7 +81,7 @@ router.get('/blog-profiles', authIn, async (req, res) => {
 
         const user = userData.get({ plain: true });
 
-        res.render('blog-profile', {
+        res.render('dashboard', {
             //TODO: Does this need to include layout: 'main', here?
             ...user,
             logged_in: true
@@ -93,7 +93,7 @@ router.get('/blog-profiles', authIn, async (req, res) => {
 
 router.get('/login', (req, res) => {
     if (req.session.logged_in) {
-        res.redirect('/blog-profiles');
+        res.redirect('/dashboard');
         return;
     }
 

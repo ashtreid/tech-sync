@@ -12,7 +12,7 @@ const loginFormHandler = async (event) => {
         });
 
         if (response.ok) {
-            document.location.replace('/blog-profiles');
+            document.location.replace('/dashboard');
             // document.location.replace('/');
 
         } else {
@@ -36,7 +36,7 @@ const signupFormHandler = async (event) => {
         });
 
         if (response.ok) {
-            document.location.replace('/blog-profiles');
+            document.location.replace('/dashboard');
             // document.location.replace('/');
         } else {
             alert(response.statusText);

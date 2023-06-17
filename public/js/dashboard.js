@@ -8,7 +8,7 @@ const newBlogHandler = async (event) => {
     // if (title && needed_funding && description) {
     if (title && article) {
         // const date_created = new Date();
-        const response = await fetch('/api/blogs', {
+        const response = await fetch('/api/blog', {
             method: 'POST',
             // body: JSON.stringify({ title, needed_funding, article }),
             // body: JSON.stringify({ title, article, date_created }),
@@ -19,7 +19,7 @@ const newBlogHandler = async (event) => {
         });
 
         if (response.ok) {
-            document.location.replace('/blog-profiles');
+            document.location.replace('/dashboard');
         } else {
             alert('Failed to create project');
         }
@@ -30,12 +30,12 @@ const deleteHandler = async (event) => {
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
 
-        const response = await fetch(`/api/blogs/${id}`, {
+        const response = await fetch(`/api/blog/${id}`, {
             method: 'DELETE',
         });
 
         if (response.ok) {
-            document.location.replace('/blog-profiles');
+            document.location.replace('/dashboard');
         } else {
             alert('Failed to delete blog');
         }

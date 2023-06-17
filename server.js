@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
+const handlebarsHelpers = require('handlebars-helpers');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
 
@@ -32,6 +33,10 @@ app.use(session(sesh));
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+
+handlebarsHelpers({
+  handlebars: exphbs.handlebars
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
