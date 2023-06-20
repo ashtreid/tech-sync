@@ -1,4 +1,6 @@
 const deleteHandler = async (event) => {
+    event.preventDefault();
+
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
 
@@ -15,5 +17,5 @@ const deleteHandler = async (event) => {
 };
 
 document
-    .querySelector('.blog-list')
+    .querySelector('#delete-id')
     .addEventListener('click', deleteHandler);

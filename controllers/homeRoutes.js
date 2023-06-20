@@ -53,21 +53,16 @@ router.get('/blog/:id/comments', async (req, res) => {
     try {
         const blogId = req.params.id;
 
-        // Retrieve the blog by its ID
         const blog = await Blog.findByPk(blogId);
 
         if (!blog) {
-            // Handle the case where the blog is not found
             return res.status(404).json({ error: 'Blog not found' });
         }
 
-        // Retrieve the comments associated with the blog
         const comments = await blog.getComments();
 
-        // Respond with the comments
         return res.json(comments);
     } catch (error) {
-        // Handle any errors that occur
         console.error(error);
         return res.status(500).json({ error: 'Internal server error' });
     }
@@ -83,8 +78,17 @@ router.get('/dashboard', authIn, async (req, res) => {
         const user = userData.get({ plain: true });
 
         res.render('dashboard', {
-            //TODO: Does this need to include layout: 'main', here?
             ...user,
+            logged_in: true
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.get('/create-article', authIn, async (req, res) => {
+    try {
+        res.render('article', {
             logged_in: true
         });
     } catch (err) {
