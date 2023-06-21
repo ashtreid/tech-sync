@@ -15,6 +15,4 @@ router.post('/create-article', authIn, async (req, res) => {
   }
 });
 
-
-
 module.exports = router;

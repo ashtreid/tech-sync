@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Blog, User } = require('../models');
+const { Blog, User, Commentary } = require('../models');
 const authIn = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -32,41 +32,57 @@ router.get('/blog/:id', async (req, res) => {
                     model: User,
                     attributes: ['id', 'name'],
                 },
+                {
+                    model: Commentary,
+                    attributes: ['id', 'content', 'date_created'],
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['name'],
+                        },
+                    ],
+                },
             ],
         });
 
-        const blogs = blogData.get({ plain: true });
+        const blog = blogData.get({ plain: true });
         const logged_in = req.session.logged_in || false;
-        const isAuthor = req.session.user_id === blogs.user.id
+        const isAuthor = req.session.user_id === blog.user.id;
+        const comments = blog.commentaries;
+        console.log("BLOG:", blog);
+        console.log("COMMENTS:", comments);
+        comments.forEach((comment) => {console.log("COMMENTS-CONTENT:", comment.content)});
+        comments.forEach((comment) => {console.log("COMMENTS-NAME:", comment.user.name)});
 
         res.render('blog', {
-            ...blogs,
+            ...blog,
             logged_in,
-            isAuthor
+            isAuthor,
+            comments,
         });
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
-router.get('/blog/:id/comments', async (req, res) => {
-    try {
-        const blogId = req.params.id;
+// router.get('/blog/:id/comments', async (req, res) => {
+//     try {
+//         const blogId = req.params.id;
 
-        const blog = await Blog.findByPk(blogId);
+//         const blog = await Blog.findByPk(blogId);
 
-        if (!blog) {
-            return res.status(404).json({ error: 'Blog not found' });
-        }
+//         if (!blog) {
+//             return res.status(404).json({ error: 'Blog not found' });
+//         }
 
-        const comments = await blog.getComments();
+//         const comments = await blog.getComments();
 
-        return res.json(comments);
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: 'Internal server error' });
-    }
-});
+//         return res.json(comments);
+//     } catch (error) {
+//         console.error(error);
+//         return res.status(500).json({ error: 'Internal server error' });
+//     }
+// });
 
 router.get('/dashboard', authIn, async (req, res) => {
     try {
