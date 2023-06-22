@@ -49,40 +49,21 @@ router.get('/blog/:id', async (req, res) => {
         const logged_in = req.session.logged_in || false;
         const isAuthor = req.session.user_id === blog.user.id;
         const comments = blog.commentaries;
-        console.log("BLOG:", blog);
-        console.log("COMMENTS:", comments);
-        comments.forEach((comment) => {console.log("COMMENTS-CONTENT:", comment.content)});
-        comments.forEach((comment) => {console.log("COMMENTS-NAME:", comment.user.name)});
+        // const editMode = req.query.editMode === 'true';
+        // console.log("EDIT_MODE", editMode);
+        // console.log("isEDITING", isEditing);
 
         res.render('blog', {
             ...blog,
             logged_in,
             isAuthor,
+            // editMode,
             comments,
         });
     } catch (err) {
         res.status(500).json(err);
     }
 });
-
-// router.get('/blog/:id/comments', async (req, res) => {
-//     try {
-//         const blogId = req.params.id;
-
-//         const blog = await Blog.findByPk(blogId);
-
-//         if (!blog) {
-//             return res.status(404).json({ error: 'Blog not found' });
-//         }
-
-//         const comments = await blog.getComments();
-
-//         return res.json(comments);
-//     } catch (error) {
-//         console.error(error);
-//         return res.status(500).json({ error: 'Internal server error' });
-//     }
-// });
 
 router.get('/dashboard', authIn, async (req, res) => {
     try {
@@ -106,6 +87,31 @@ router.get('/create-article', authIn, async (req, res) => {
     try {
         res.render('article', {
             logged_in: true
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.get('/blog/update/:id', authIn, async (req, res) => {
+    try {
+        const blogData = await Blog.findByPk(req.params.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'name'],
+                },
+            ],
+        });
+
+        const blog = blogData.get({ plain: true });
+        const logged_in = req.session.logged_in || false;
+        const isAuthor = req.session.user_id === blog.user.id;
+
+        res.render('edit-blog', {
+            ...blog,
+            logged_in,
+            isAuthor,
         });
     } catch (err) {
         res.status(500).json(err);

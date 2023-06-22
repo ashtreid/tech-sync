@@ -2,19 +2,24 @@ const router = require('express').Router();
 const { Commentary } = require('../../models');
 const authIn = require('../../utils/auth');
 
-router.post('/commentary', authIn, async (req, res) => {
+router.post('/send', authIn, async (req, res) => {
     try {
-        console.log("REQ BODY:", req.body);
-      const commentData = await Commentary.create(req.body);
-        console.log("COMMENTDATA:", commentData);
-      req.session.save(() => {
+        const commentData = await Commentary.create({
+            content: req.body.content,
+            user_id: req.session.user_id,
+            blog_id: req.body.blogId,
+        });
+
+        await req.session.save();
+
         req.session.user_id = commentData.user_id;
         req.session.logged_in = true;
         req.session.blogId = commentData.blog_id;
-      });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
 
-  module.exports = router;
+        res.status(200).json(commentData);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+module.exports = router;

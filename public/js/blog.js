@@ -18,7 +18,7 @@ const updateHandler = async (event) => {
             });
 
             if (response.ok) {
-                document.location.replace('/dashboard');
+                document.location.replace(`/blog/${id}`);
             } else {
                 alert('Failed to update blog');
             }
@@ -30,14 +30,15 @@ const commentHandler = async (event) => {
     event.preventDefault();
 
     const blogId = event.target.dataset.id;
+    console.log("BLOGID", blogId);
 
     if (blogId) {
         const content = document.querySelector('#comment-box').value.trim();
 
         if (content) {
-            const response = await fetch(`/api/commentary`, {
+            const response = await fetch('/api/commentary/send', {
                 method: 'POST',
-                body: JSON.stringify({ content }),
+                body: JSON.stringify({ content, blogId }),
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -72,14 +73,37 @@ const deleteHandler = async (event) => {
     }
 };
 
-document
-    .querySelector('#delete-btn')
-    .addEventListener('click', deleteHandler);
+// const editButton = document.querySelector('#edit-btn');
 
-document
-    .querySelector('#update-btn')
-    .addEventListener('click', updateHandler);
+// editButton.addEventListener('click', async (event) => {
+//     event.preventDefault();
+//     window.location.href = '/?editMode'
+// });
 
-document
-    .querySelector('#comment-btn')
-    .addEventListener('click', commentHandler);
+// const editButton = document.querySelector('#edit-btn');
+// const readOnly = document.querySelector('#read-only-post');
+
+// editButton.addEventListener('click', async (event) => {
+//     event.preventDefault();
+//     const currentUrl = new URL(window.location.href);
+//     currentUrl.searchParams.set('editMode', 'true');
+//     window.location.href = currentUrl.href;
+//     // readOnly.style.display = 'none';
+//     // readOnly.classList.add('hidden');
+// });
+
+
+const deleteButton = document.querySelector('#delete-btn');
+if (deleteButton) {
+    deleteButton.addEventListener('click', deleteHandler);
+}
+
+const updateButton = document.querySelector('#update-btn');
+if (updateButton) {
+    updateButton.addEventListener('click', updateHandler);
+}
+
+const commentButton = document.querySelector('#comment-btn');
+if (commentButton) {
+    commentButton.addEventListener('click', commentHandler);
+}
