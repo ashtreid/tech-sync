@@ -127,4 +127,19 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
+router.get('/signup', (req, res) => {
+    // if (req.session.logged_in) {
+    //     res.redirect('/dashboard');
+    //     return;
+    // }
+    try{
+        res.render('signup', {
+            logged_in: true
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+
+});
+
 module.exports = router;

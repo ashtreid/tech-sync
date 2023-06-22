@@ -73,26 +73,6 @@ const deleteHandler = async (event) => {
     }
 };
 
-// const editButton = document.querySelector('#edit-btn');
-
-// editButton.addEventListener('click', async (event) => {
-//     event.preventDefault();
-//     window.location.href = '/?editMode'
-// });
-
-// const editButton = document.querySelector('#edit-btn');
-// const readOnly = document.querySelector('#read-only-post');
-
-// editButton.addEventListener('click', async (event) => {
-//     event.preventDefault();
-//     const currentUrl = new URL(window.location.href);
-//     currentUrl.searchParams.set('editMode', 'true');
-//     window.location.href = currentUrl.href;
-//     // readOnly.style.display = 'none';
-//     // readOnly.classList.add('hidden');
-// });
-
-
 const deleteButton = document.querySelector('#delete-btn');
 if (deleteButton) {
     deleteButton.addEventListener('click', deleteHandler);
