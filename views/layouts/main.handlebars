@@ -12,18 +12,18 @@
 <body>
     <div class="flex-column justify-space-around">
         <header class="display-flex justify-space-between align-center p-2">
-            <h1>
+            <h1 class="ml-5 mt-3">
                 <a href="/">TechSync</a>
             </h1>
             <nav>
                 {{#if logged_in}}
-                <a href="/">home</a> |
-                <a href="/dashboard">dashboard</a> |
-                <button class="no-button" id="logout">logout</button>
+                <a href="/">HOME</a> |
+                <a href="/dashboard">DASHBOARD</a> |
+                <button class="no-button" id="logout">LOGOUT</button>
                 {{else}}
-                <a href="/">home</a> |
-                <a href="/login">dashboard</a> |
-                <a href="/login">login</a>
+                <a href="/">HOME</a> |
+                <a href="/login">DASHBOARD</a> |
+                <a href="/login">LOGIN</a>
                 {{/if}}
             </nav>
         </header>

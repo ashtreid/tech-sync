@@ -21,6 +21,16 @@ const newBlogHandler = async (event) => {
     }
 };
 
+const goToDashboard = async (event) => {
+    event.preventDefault();
+    document.location.replace('/dashboard');
+};
+
+document
+    .querySelector('#cancel-article-btn')
+    .addEventListener('click', goToDashboard);
+
+
 document
     .querySelector('.new-blog-form')
     .addEventListener('submit', newBlogHandler);

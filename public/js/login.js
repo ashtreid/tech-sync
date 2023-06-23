@@ -37,17 +37,31 @@ const signupFormHandler = async (event) => {
 
         if (response.ok) {
             document.location.replace('/dashboard');
-            // document.location.replace('/');
         } else {
             alert(response.statusText);
         }
     }
 };
 
-document
-    .querySelector('.login-form')
-    .addEventListener('submit', loginFormHandler);
+const goToSignup = async (event) => {
+    event.preventDefault();
+    document.location.replace('/signup');
+};
 
-document
-    .querySelector('.signup-form')
-    .addEventListener('submit', signupFormHandler);
+const signupButton = document.querySelector('#signup-btn');
+if (signupButton) {
+    signupButton.addEventListener('click', goToSignup);
+};
+
+const loginForm = document.querySelector('.login-form');
+if (loginForm) {
+    loginForm.addEventListener('submit', loginFormHandler);
+};
+
+const signupForm = document.querySelector('.signup-form');
+if (signupForm) {
+    signupForm.addEventListener('submit', signupFormHandler);
+};
+
+
+    

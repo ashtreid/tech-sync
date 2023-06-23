@@ -2,7 +2,6 @@ const updateHandler = async (event) => {
     event.preventDefault();
 
     const id = event.target.dataset.id;
-    console.log("DATA_ID:", id);
 
     if (id) {
         const title = document.querySelector('#blog-title').value.trim();
@@ -30,7 +29,6 @@ const commentHandler = async (event) => {
     event.preventDefault();
 
     const blogId = event.target.dataset.id;
-    console.log("BLOGID", blogId);
 
     if (blogId) {
         const content = document.querySelector('#comment-box').value.trim();
@@ -58,7 +56,6 @@ const commentHandler = async (event) => {
 const deleteHandler = async (event) => {
     event.preventDefault();
     const id = event.target.dataset.id;
-    console.log("DATA_ID:", id);
 
     if (id) {
         const response = await fetch(`/api/blog/delete/${id}`, {
@@ -71,6 +68,34 @@ const deleteHandler = async (event) => {
             alert('Failed to delete blog');
         }
     }
+};
+
+const goToEdit = async (event) => {
+    event.preventDefault();
+
+    const id = event.target.dataset.id;
+    if (id) {
+        document.location.replace(`/blog/update/${id}`);
+    };
+
+};
+
+const cancelEdit = async (event) => {
+    event.preventDefault();
+    const id = event.target.dataset.id;
+    if (id) {
+        document.location.replace(`/blog/${id}`);
+    };
+};
+
+const cancelButton = document.querySelector('#cancel-btn');
+if (cancelButton) {
+    cancelButton.addEventListener('click', cancelEdit);
+};
+
+const editButton = document.querySelector('#edit-btn');
+if (editButton) {
+    editButton.addEventListener('click', goToEdit);
 };
 
 const deleteButton = document.querySelector('#delete-btn');
