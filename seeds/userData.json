@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Velma Rose",
+        "email": "vrose@email.com",
+        "password": "password"
+    },
+    {
+        "name": "Cormac Gould",
+        "email": "cgould@email.com",
+        "password": "password"
+    },
+    {
+        "name": "Francesca Welsh",
+        "email": "fwelsh@email.com",
+        "password": "password"
+    }
+]

@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-auto ">
+        <h2>Welcome, {{name}}!</h2>
+    </div>
+</div {{#if blogs.length}} <div class="col-md-6 blog-list">
+<h4 class="pt-5">Your published articles:</h4>
+
+{{#each blogs as |blog|}}
+<div class="container mb-3 card text-center pt-3">
+    <div class=" col-md-11">
+        <h5><a href="/blog/{{blog.id}}">{{blog.title}}</a></h5>
+        <h6>{{format_date blog.date_created}}</h6>
+    </div>
+
+</div>
+{{/each}}
+
+</div>
+{{/if}}
+
+</div>
+<div class="row justify-space-around-sm mt-5">
+    <button class="btn btn-primary new-article-btn">NEW ARTICLE</button>
+</div>
+
+<script src="/js/dashboard.js" type="text/javascript"></script>

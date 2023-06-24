@@ -1,0 +1,58 @@
+[
+    {
+        "content": "Great blog post!",
+        "blog_id": "1"
+    }, 
+    {
+        "content": "Interesting read.",
+        "blog_id": "1"
+    }, 
+    {
+        "content": "Nice insights shared.",
+        "blog_id": "2"
+    }, 
+    {
+        "content": "Well written!",
+        "blog_id": "2"
+    }, 
+    {
+        "content": "Thanks for sharing.",
+        "blog_id": "3"
+    }, 
+    {
+        "content": "I found this helpful.",
+        "blog_id": "3"
+    }, 
+    {
+        "content": "Good points raised.",
+        "blog_id": "4"
+    }, 
+    {
+        "content": "Interesting perspective.",
+        "blog_id": "4"
+    }, 
+    {
+        "content": "Well articulated.",
+        "blog_id": "5"
+    }, 
+    {
+        "content": "I enjoyed reading this.",
+        "blog_id": "5"
+    }, 
+    {
+        "content": "This resonates with me.",
+        "blog_id": "5"
+    }, 
+    {
+        "content": "Great job!",
+        "blog_id": "5"
+    }, 
+    {
+        "content": "Nice work!",
+        "blog_id": "6"
+    }, 
+    {
+        "content": "I appreciate your effort.",
+        "blog_id": "6"
+    }
+]
